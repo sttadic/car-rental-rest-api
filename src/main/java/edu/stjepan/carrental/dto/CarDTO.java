@@ -9,18 +9,21 @@ public class CarDTO {
 	private String registrationNumber;
 	private int year;
 	private BigDecimal dailyRate;
+	private int totalBookings;
 
 	public CarDTO() {
 
 	}
 
-	public CarDTO(Long id, String make, String model, String registrationNumber, int year, BigDecimal dailyRate) {
+	public CarDTO(Long id, String make, String model, String registrationNumber, int year, BigDecimal dailyRate,
+			int totalBookings) {
 		this.id = id;
 		this.make = make;
 		this.model = model;
 		this.registrationNumber = registrationNumber;
 		this.year = year;
 		this.dailyRate = dailyRate;
+		this.totalBookings = totalBookings;
 	}
 
 	public Long getId() {
@@ -47,4 +50,7 @@ public class CarDTO {
 		return dailyRate;
 	}
 
+	public int getTotalBookings() {
+		return totalBookings;
+	}
 }
