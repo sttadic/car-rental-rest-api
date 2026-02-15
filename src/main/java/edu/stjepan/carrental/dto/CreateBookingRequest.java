@@ -1,0 +1,63 @@
+package edu.stjepan.carrental.dto;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import jakarta.validation.constraints.*;
+
+public class CreateBookingRequest {
+
+	@NotBlank
+	private Long carId;
+
+	@NotBlank
+	private String customerName;
+
+	@Email
+	@NotBlank
+	private String customerEmail;
+
+	@NotBlank
+	private LocalDate startDate;
+
+	@NotBlank
+	private LocalDate endDate;
+
+	@DecimalMin("0.0")
+	private BigDecimal totalAmount;
+
+	@NotBlank
+	private String status;
+
+	public CreateBookingRequest() {
+	}
+
+	public Long getCarId() {
+		return carId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public String getCustomerEmail() {
+		return customerEmail;
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+}
