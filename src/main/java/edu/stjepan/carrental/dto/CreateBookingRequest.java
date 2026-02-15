@@ -7,7 +7,7 @@ import jakarta.validation.constraints.*;
 
 public class CreateBookingRequest {
 
-	@NotBlank
+	@NotNull
 	private Long carId;
 
 	@NotBlank
@@ -17,10 +17,10 @@ public class CreateBookingRequest {
 	@NotBlank
 	private String customerEmail;
 
-	@NotBlank
+	@NotNull
 	private LocalDate startDate;
 
-	@NotBlank
+	@NotNull
 	private LocalDate endDate;
 
 	@DecimalMin("0.0")
