@@ -3,6 +3,7 @@ package edu.stjepan.carrental.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class BookingServiceImpl implements BookingService {
 	private final BookingRepository bookingRepository;
 	private final CarRepository carRepository;
 
+	@Autowired
 	public BookingServiceImpl(BookingRepository bookingRepository, CarRepository carRepository) {
 		this.bookingRepository = bookingRepository;
 		this.carRepository = carRepository;
@@ -26,6 +28,10 @@ public class BookingServiceImpl implements BookingService {
 	public BookingDTO createBooking(CreateBookingRequest request) {
 		Car car = carRepository.findById(request.getCarId())
 				.orElseThrow(() -> new IllegalArgumentException("Car not found with id: " + request.getCarId()));
+
+		if (request.getEndDate().isBefore(request.getStartDate())) {
+			throw new IllegalArgumentException("End date cannot be before start date.");
+		}
 
 		Booking booking = new Booking(car, request.getCustomerName(), request.getCustomerEmail(),
 				request.getStartDate(), request.getEndDate(), request.getTotalAmount(), request.getStatus());
