@@ -31,6 +31,9 @@ public class Car {
 	@OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Booking> bookings = new ArrayList<>();
 
+	public Car() {
+	}
+
 	public Car(String make, String model, String registrationNumber, int year, BigDecimal dailyRate) {
 		this.make = make;
 		this.model = model;
