@@ -33,9 +33,8 @@ public class BookingController {
 	}
 
 	@GetMapping
-	public Page<BookingDTO> getBookings(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "5") int size) {
-		return bookingService.getAllBookings(PageRequest.of(page, size));
+	public Page<BookingDTO> getBookings(Pageable pageable) {
+		return bookingService.getAllBookings(pageable);
 	}
 
 	@GetMapping("/car/{carId}")

@@ -29,9 +29,8 @@ public class CarController {
 	}
 
 	@GetMapping
-	public Page<CarDTO> getCars(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "5") int size) {
-		return carService.getAllCars(PageRequest.of(page, size));
+	public Page<CarDTO> getCars(Pageable pageable) {
+		return carService.getAllCars(pageable);
 	}
 
 	@DeleteMapping("/{id}")
