@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import edu.stjepan.carrental.dto.*;
 import edu.stjepan.carrental.entity.*;
+import edu.stjepan.carrental.exception.ResourceNotFoundException;
 import edu.stjepan.carrental.mapper.BookingMapper;
 import edu.stjepan.carrental.repository.*;
 import edu.stjepan.carrental.service.BookingService;
@@ -27,7 +28,7 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public BookingDTO createBooking(CreateBookingRequest request) {
 		Car car = carRepository.findById(request.getCarId())
-				.orElseThrow(() -> new IllegalArgumentException("Car not found with id: " + request.getCarId()));
+				.orElseThrow(() -> new ResourceNotFoundException("Car not found with id: " + request.getCarId()));
 
 		if (request.getEndDate().isBefore(request.getStartDate())) {
 			throw new IllegalArgumentException("End date cannot be before start date.");
@@ -43,7 +44,7 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public BookingDTO getBookingById(Long id) {
 		Booking booking = bookingRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Booking not found with id: " + id));
+				.orElseThrow(() -> new ResourceNotFoundException("Booking not found with id: " + id));
 		return BookingMapper.toDTO(booking);
 	}
 
@@ -65,7 +66,7 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public void deleteBooking(Long id) {
 		if (!bookingRepository.existsById(id)) {
-			throw new IllegalArgumentException("Booking not found with id: " + id);
+			throw new ResourceNotFoundException("Booking not found with id: " + id);
 		}
 		bookingRepository.deleteById(id);
 

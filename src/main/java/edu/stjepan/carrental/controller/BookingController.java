@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import edu.stjepan.carrental.dto.*;
@@ -23,6 +24,7 @@ public class BookingController {
 	}
 
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	public BookingDTO createBooking(@Valid @RequestBody CreateBookingRequest request) {
 		return bookingService.createBooking(request);
 	}
@@ -48,6 +50,7 @@ public class BookingController {
 	}
 
 	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteBooking(@PathVariable Long id) {
 		bookingService.deleteBooking(id);
 	}

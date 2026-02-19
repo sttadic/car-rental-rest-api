@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import edu.stjepan.carrental.dto.*;
 import edu.stjepan.carrental.entity.Car;
+import edu.stjepan.carrental.exception.ResourceNotFoundException;
 import edu.stjepan.carrental.mapper.CarMapper;
 import edu.stjepan.carrental.repository.CarRepository;
 import edu.stjepan.carrental.service.CarService;
@@ -37,7 +38,7 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public CarDTO getCarById(Long id) {
 		Car car = carRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Car not found with id: " + id));
+				.orElseThrow(() -> new ResourceNotFoundException("Car not found with id: " + id));
 
 		return CarMapper.toDTO(car);
 	}
@@ -50,7 +51,7 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public void deleteCar(Long id) {
 		if (!carRepository.existsById(id)) {
-			throw new IllegalArgumentException("Car not found with id: " + id);
+			throw new ResourceNotFoundException("Car not found with id: " + id);
 		}
 		carRepository.deleteById(id);
 
