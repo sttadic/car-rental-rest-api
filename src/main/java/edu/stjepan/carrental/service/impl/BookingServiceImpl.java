@@ -1,6 +1,8 @@
 package edu.stjepan.carrental.service.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +36,15 @@ public class BookingServiceImpl implements BookingService {
 			throw new IllegalArgumentException("End date cannot be before start date.");
 		}
 
+		long days = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
+		if (days == 0) {
+			throw new IllegalArgumentException("Booking must be at least 1 day.");
+		}
+
+		BigDecimal totalAmount = car.getDailyRate().multiply(BigDecimal.valueOf(days));
+
 		Booking booking = new Booking(car, request.getCustomerName(), request.getCustomerEmail(),
-				request.getStartDate(), request.getEndDate(), request.getTotalAmount(), request.getStatus());
+				request.getStartDate(), request.getEndDate(), totalAmount, request.getStatus());
 
 		Booking saved = bookingRepository.save(booking);
 		return BookingMapper.toDTO(saved);

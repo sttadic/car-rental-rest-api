@@ -1,6 +1,5 @@
 package edu.stjepan.carrental.dto;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.*;
@@ -22,9 +21,6 @@ public class CreateBookingRequest {
 
 	@NotNull
 	private LocalDate endDate;
-
-	@DecimalMin("0.0")
-	private BigDecimal totalAmount;
 
 	@NotBlank
 	private String status;
@@ -50,10 +46,6 @@ public class CreateBookingRequest {
 
 	public LocalDate getEndDate() {
 		return endDate;
-	}
-
-	public BigDecimal getTotalAmount() {
-		return totalAmount;
 	}
 
 	public String getStatus() {
